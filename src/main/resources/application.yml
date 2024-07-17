@@ -1,0 +1,63 @@
+server:
+  application:
+    name: restapi-service
+  port: 8080
+  servlet:
+    context-path: /restapi
+  error:
+    include-stacktrace: always
+  shutdown: graceful
+
+spring:
+  application:
+    name: '@project.name@'
+  jackson:
+    default-property-inclusion: non_null
+
+management:
+  info.env.enabled: true
+  health:
+    mongo:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info, health, prometheus
+      base-path: /
+  endpoint:
+    health:
+      show-details: always
+
+info:
+  build:
+    groupId: '@project.groupId@'
+    artifact: '@project.artifactId@'
+    name: '@project.name@'
+    description: '@project.description@'
+    version: '@project.version@'
+    encoding: '@project.build.sourceEncoding@'
+    java:
+      version: '@java.version@'
+
+logging:
+  level:
+    root: DEBUG
+
+# STARTER LIBRARY CONFIG
+########################################
+starter:
+  application-code: R
+
+  http-client:
+    connection-request-timeout-sec: 7
+    response-timeout-sec: 28
+    pooling:
+      connection-limit: 3000
+      max-connection-per-route: 3000
+
+# API CONFIG
+########################################
+api:
+  lms-adapter:
+    base-url: http://localhost:10052/info-adapter
+    access-key: 3cafe-is-an-access-key
